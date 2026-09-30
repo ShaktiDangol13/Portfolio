@@ -47,7 +47,21 @@ function useCurrentPath() {
 
 export default function App() {
   const path = useCurrentPath();
-  const notFound = !['/', '/index.html', ''].includes(path);
+
+  // CHANGED: Support GitHub Pages /Portfolio/ path
+  const basePath = import.meta.env.BASE_URL;
+
+  const baseWithoutTrailingSlash =
+    basePath === '/' ? '/' : basePath.replace(/\/$/, '');
+
+  const validPaths = [
+    basePath,
+    baseWithoutTrailingSlash,
+    `${basePath}index.html`,
+  ];
+
+  const notFound = !validPaths.includes(path);
+  // END CHANGE
 
   const [loaderDone, setLoaderDone] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,9 +77,12 @@ export default function App() {
   /* Global declarative reveals, scoped to the page so they can be reverted. */
   useLayoutEffect(() => {
     if (!ready || !pageRef.current) return undefined;
+
     revealsRef.current?.revert();
     revealsRef.current = initReveals(pageRef.current);
+
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 400);
+
     return () => {
       window.clearTimeout(refresh);
       revealsRef.current?.revert();
@@ -76,16 +93,21 @@ export default function App() {
   /* Lock page scroll while the fullscreen menu is open. */
   useEffect(() => {
     if (!menuOpen) return undefined;
+
     lockScroll('menu-open');
+
     return () => unlockScroll('menu-open');
   }, [menuOpen]);
 
   useEffect(() => {
     if (!menuOpen) return undefined;
+
     const onResize = () => {
       if (window.innerWidth > 900) setMenuOpen(false);
     };
+
     window.addEventListener('resize', onResize);
+
     return () => window.removeEventListener('resize', onResize);
   }, [menuOpen]);
 
@@ -97,11 +119,22 @@ export default function App() {
 
       {!notFound ? <Preloader onReady={handleReady} /> : null}
 
+      <Navigation
+        ready={ready}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
 
-      <Navigation ready={ready} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} ready={ready} />
+      <MobileMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        ready={ready}
+      />
 
-      <div className={`page ${menuOpen ? 'is-pushed' : ''}`} ref={pageRef}>
+      <div
+        className={`page ${menuOpen ? 'is-pushed' : ''}`}
+        ref={pageRef}
+      >
         <main id="main">
           {notFound ? (
             <NotFound />
