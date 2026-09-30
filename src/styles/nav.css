@@ -1,0 +1,239 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding: clamp(16px, 2vw, 26px) var(--pad-x);
+  opacity: 0;
+  transform: translateY(-24px);
+  pointer-events: none;
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo),
+    padding 0.5s var(--ease-out-expo),
+    background-color 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo);
+}
+
+.nav.is-ready {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition-delay: 0.25s;
+}
+
+.nav.is-hidden {
+  transform: translateY(-115%);
+  transition-delay: 0s;
+}
+
+.nav.is-compact {
+  padding-block: clamp(10px, 1.2vw, 16px);
+  background: color-mix(in srgb, var(--background) 78%, transparent);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav.is-menu-open {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
+/* ---------------- Brand ---------------- */
+.nav__brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+
+
+
+/* ---------------- Links ---------------- */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 2.2rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  padding: 0.45em 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out-expo);
+}
+
+.nav__link-index {
+  font-size: 0.72em;
+  color: var(--text-faint);
+  transition: color var(--dur-fast) var(--ease-out-expo);
+}
+
+.nav__link-label {
+  display: inline-block;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.nav__link-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s var(--ease-out-expo);
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--text-primary);
+}
+
+.nav__link:hover .nav__link-index,
+.nav__link:focus-visible .nav__link-index {
+  color: var(--accent);
+}
+
+.nav__link:hover .nav__link-label,
+.nav__link:focus-visible .nav__link-label {
+  transform: translateX(4px);
+}
+
+.nav__link:hover .nav__link-line,
+.nav__link:focus-visible .nav__link-line {
+  transform: scaleX(1);
+}
+
+/* ---------------- Right cluster ---------------- */
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  padding: 0.55em 1em;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  transition:
+    border-color var(--dur-fast) var(--ease-out-expo),
+    background-color var(--dur-fast) var(--ease-out-expo),
+    color var(--dur-fast) var(--ease-out-expo);
+}
+
+.nav__cta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: navPulse 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes navPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.55);
+    opacity: 0.5;
+  }
+}
+
+.nav__cta:hover,
+.nav__cta:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-primary);
+}
+
+/* ---------------- Burger ---------------- */
+.nav__burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__burger span {
+  position: absolute;
+  width: 16px;
+  height: 1.5px;
+  background: var(--text-primary);
+  transition: transform 0.45s var(--ease-out-expo);
+}
+
+.nav__burger span:first-child {
+  transform: translateY(-4px);
+}
+
+.nav__burger span:last-child {
+  transform: translateY(4px);
+}
+
+.nav__burger.is-open span:first-child {
+  transform: rotate(45deg);
+}
+
+.nav__burger.is-open span:last-child {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
+  .nav__link-index {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__burger {
+    display: inline-flex;
+  }
+
+.nav.is-compact .nav__brand-mono {
+    display: none;
+  }
+}

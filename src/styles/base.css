@@ -1,0 +1,383 @@
+/* ============================ RESET / BASE ============================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+html,
+body {
+  overflow-x: clip;
+  background-color: var(--background);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+html.is-locked,
+body.is-locked {
+  overflow: hidden !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ============================ LAYOUT UTILITIES ============================ */
+.shell {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.section--tight {
+  padding-block: clamp(60px, 7vw, 130px);
+}
+
+.section--flush-top {
+  padding-top: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.rule {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  transform-origin: left center;
+}
+
+/* ============================ TYPE UTILITIES ============================ */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.label__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+.label--outline {
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  letter-spacing: 0.14em;
+}
+
+.section-title {
+  font-size: var(--text-h2);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.body-lg {
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: -0.01em;
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* Plain section labels keep the layout open without heavy bars. */
+.theme-light :is(.chip, .pstep__tags li, .db__checks li, .label--outline) {
+  background: #cdf564;
+  color: #111111;
+  border-color: transparent;
+}
+
+.theme-light .tc__tab:not(.is-active) {
+  background: #111111;
+  color: #cdf564;
+  border-color: transparent;
+}
+
+.theme-light .label {
+  color: #cdf564;
+}
+
+.theme-light .service:hover .service__title,
+.theme-light .project:hover .project__name,
+.theme-light .project__link:focus-visible .project__name,
+.theme-light .tool:hover .tool__name {
+  color: #cdf564;
+}
+
+.theme-light .service:hover::before,
+.theme-light .tool:hover,
+.theme-light .project:hover {
+  background-color: rgb(205 245 100 / 12%);
+}
+
+.theme-light .btn::before {
+  background: #cdf564;
+}
+
+.theme-light .btn:hover,
+.theme-light .btn:focus-visible,
+.theme-light .tc__tab:hover,
+.theme-light .tc__tab:focus-visible,
+.theme-light .tc__next:hover,
+.theme-light .tc__next:focus-visible {
+  background-color: #cdf564;
+  border-color: #cdf564;
+  color: #111111;
+}
+
+.theme-green .label {
+  color: #111111;
+}
+
+.theme-light .label__dot,
+.theme-green .label__dot {
+  background: currentColor;
+}
+
+.theme-light .section-title {
+  text-decoration: none;
+}
+
+.theme-light .heading-lime,
+.theme-light .intro__headline .split-word:last-child {
+  color: #cdf564;
+  -webkit-text-stroke: 0;
+}
+
+.theme-light .label__dot { background: #cdf564; }
+.theme-green .label__dot { background: #ffffff; }
+
+.theme-green .section-title .split-chunk:last-child,
+.theme-green .contact__line:last-child,
+.theme-green .philo__block--second {
+  color: #ffffff;
+}
+
+.section:not(.theme-light):not(.theme-green) .section-title .split-chunk:last-child {
+  color: #cdf564;
+}
+
+.theme-light .process__line-fill,
+.theme-light .process__progress-bar,
+.theme-light .pstep.is-active .pstep__marker {
+  background: #cdf564;
+  border-color: transparent;
+  color: #111111;
+}
+
+.theme-green .contact__actions .btn {
+  color: #ffffff;
+  background: #111111;
+  --inverse-background: #ffffff;
+  --inverse-text: #111111;
+}
+
+.theme-light .service__description,
+.theme-light .pstep__detail,
+.theme-light .project__detail {
+  opacity: 1;
+}
+
+/* ScrollTrigger's spacer should carry the pinned section's surface color. */
+.pin-spacer:has(> .theme-green) {
+  background: #cdf564;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  padding: 12px 18px;
+  background: var(--accent);
+  color: var(--background);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transform: translateY(-160%);
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ============================ SPLIT TEXT ============================ */
+.split-chunk {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+.split-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* ============================ REVEAL BASE STATES ============================ */
+[data-reveal] {
+  will-change: transform, opacity;
+}
+
+/* ============================ GRAIN OVERLAY ============================ */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 150;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================ PAGE TRANSITION (mobile menu) ============================ */
+.page {
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 0%;
+  transition: transform 0.9s var(--ease-out-expo), opacity 0.9s var(--ease-out-expo);
+}
+
+.page.is-pushed {
+  transform: scale(0.955) translateY(14px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page.is-pushed {
+    transform: none;
+    opacity: 0.4;
+  }
+}

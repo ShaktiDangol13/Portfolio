@@ -1,0 +1,63 @@
+/* ============================ INTRO ============================ */
+.intro__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gap);
+  margin-bottom: clamp(50px, 7vw, 110px);
+}
+
+.intro__aside {
+  grid-column: span 3;
+}
+
+.intro__body {
+  grid-column: 5 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 4vw, 64px);
+}
+
+.intro__headline {
+  font-size: clamp(1.7rem, 4.2vw, 4.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.intro__support {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(24px, 3vw, 56px);
+  max-width: 1000px;
+}
+
+@media (max-width: 900px) {
+  .intro__aside,
+  .intro__body {
+    grid-column: 1 / -1;
+  }
+}
+/* Profile photo stays in the existing introduction aside. */
+.intro__portrait { margin-top: clamp(24px, 3vw, 44px); }
+.intro__portrait img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+}
+.intro__portrait figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: .12em;
+  line-height: 1.7;
+}
+.intro__portrait figcaption span { color: var(--text-secondary); letter-spacing: .04em; }
+@media (max-width: 900px) {
+  .intro__portrait { max-width: 400px; }
+}

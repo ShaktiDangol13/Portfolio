@@ -1,0 +1,45 @@
+.notfound {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--nav-h) + clamp(40px, 8vw, 100px)) clamp(60px, 8vw, 120px);
+}
+
+.notfound__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(24px, 3.5vw, 48px);
+}
+
+.notfound__title {
+  font-size: clamp(3rem, 14vw, 13rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.notfound__report {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: clamp(16px, 2vw, 32px);
+  width: 100%;
+  padding-block: clamp(20px, 2.6vw, 36px);
+  border-block: 1px solid var(--border);
+}
+
+.notfound__report dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.6rem;
+}
+
+.notfound__report dd {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.7rem);
+  letter-spacing: -0.02em;
+}
